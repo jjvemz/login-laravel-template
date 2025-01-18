@@ -12,23 +12,40 @@ use Illuminate\Validation\ValidationException;
 class AuthController extends Controller
 {
     function register(Request $request){
-        $request = $request->validate([
-            "first_name" => "string|max:50|min:5",
-            "last_name" => "string|max:50|min:5",
-            "phone"=>"regex:/^\+56\d{9}$/",
-            'email' => 'required|email|unique:users,email',
-            'password'=> 'required|max:50|min:5',
+        $ValidatedRequest = $request->validate([
+            "first_name" => "required|string|max:50|min:5|regex:/^[a-zA-ZáéíóúÁÉÍÓÚñÑ\s]+$/",
+            "last_name" => "required|string|max:50|min:5|regex:/^[a-zA-ZáéíóúÁÉÍÓÚñÑ\s]+$/",
+            "phone"=>"required|regex:/^\+56\d{9}$/",
+            'email' => 'required|email|unique:users,email|max:100',
+            'password'=> 'required|max:50|min:5|regex:/^(?=.*[A-Z])(?=.*\d).+$/',
+        ], [
+            "first_name.required" => "El nombre es obligatorio.",
+            "first_name.max" => "El nombre no puede tener más de 50 caracteres.",
+            "first_name.min" => "El nombre debe tener al menos 5 caracteres.",
+            "last_name.required" => "El apellido es obligatorio.",
+            "last_name.max" => "El apellido no puede tener más de 50 caracteres.",
+            "last_name.min" => "El apellido debe tener al menos 5 caracteres.",
+            "phone.required" => "El número de teléfono es obligatorio.",
+            "phone.regex" => "El formato del número de teléfono debe ser +56 seguido de 9 dígitos.",
+            "email.required" => "El correo electrónico es obligatorio.",
+            "email.email" => "El correo electrónico debe ser válido.",
+            "email.unique" => "El correo electrónico ya está registrado.",
+            "password.required" => "La contraseña es obligatoria.",
+            "password.max" => "La contraseña no puede tener más de 50 caracteres.",
+            "password.min" => "La contraseña debe tener al menos 5 caracteres.",
+            "password.regex" => "La contraseña debe contener al menos una letra minúscula, una letra mayúscula, un número y un carácter especial.",
         ]);
 
+        
         $user = User::create([
-            'first_name' => $request['first_name'],
-            'last_name' => $request['last_name'],
-            'email' => $request['email'],
-            'phone' => $request['phone'],
-            'password' => Hash::make($request['password']),
+            'first_name' => $ValidatedRequest['first_name'],
+            'last_name' => $ValidatedRequest['last_name'],
+            'email' => $ValidatedRequest['email'],
+            'phone' => $ValidatedRequest['phone'],
+            'password' => Hash::make($ValidatedRequest['password']),
         ]);
 
-        return response()->json([], 201);
+        return response()->json(["message"=> "¡Usuario registado con éxito!"], 201);
     }
 
     function login(Request $request){
@@ -53,6 +70,6 @@ class AuthController extends Controller
 
         Auth::logout();
 
-        Inertia::render('login');
+        Inertia::render('Login');
     }
 }

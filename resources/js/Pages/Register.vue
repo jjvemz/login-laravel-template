@@ -1,6 +1,6 @@
 <template>
     <HomeLayout>
-        <div class="h-full bg-gray-100">
+        <div class="h-full bg-gray-100 motion-translate-x-in-100">
             <!-- Container -->
             <div class="mx-auto">
                 <div class="flex justify-center px-6 py-12">

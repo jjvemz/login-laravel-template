@@ -1,6 +1,6 @@
 <template>
     <HomeLayout>
-        <div class="min-h-screen bg-gray-50 p-6 flex items-center justify-center">
+        <div class="min-h-screen bg-gray-50 p-6 flex items-center justify-center motion-preset-typewriter-[24]">
             <div class="w-full max-w-3xl">
                 <!-- Título principal de la aplicación -->
                 <div class="mb-6">
@@ -16,7 +16,7 @@
 
                 <!-- Descripción de la funcionalidad -->
                 <div class="mb-6">
-                    <p class="text-md text-gray-600">Puedes registrarte proporcionando tu nombre, apellido, número de
+                    <p class="text-md text-gray-600" >Puedes registrarte proporcionando tu nombre, apellido, número de
                         teléfono y correo electrónico. Posteriormente, podrás iniciar sesión de manera segura utilizando
                         tus
                         credenciales.</p>

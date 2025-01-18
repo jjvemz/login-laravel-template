@@ -13,7 +13,6 @@
                         <div class="w-full lg:w-7/12 bg-white dark:bg-gray-600 p-5 rounded-lg lg:rounded-l-none">
                             <h3 class="py-4 text-2xl text-center text-gray-500 dark:text-white">Ingreso</h3>
                             <form @submit.prevent="Login" class="px-8 pt-6 pb-8 mb-4 bg-white dark:bg-gray-700 rounded">
-
                                 <div class="mb-4">
                                     <label class="block mb-2 text-sm font-bold text-gray-700 dark:text-white"
                                         for="email">
@@ -33,6 +32,7 @@
                                         id="password" v-model="password" type="password" placeholder="Contraseña" />
                                 </div>
                                 <Button @click="Login"> Ingresar</Button>
+                                
                             </form>
                         </div>
                     </div>
@@ -45,7 +45,8 @@
 <script>
 import axios from 'axios';
 import HomeLayout from '../Layout/HomeLayout.vue';
-import Button from '@/Components/Button.vue'
+import Button from '@/Components/Button.vue';
+import { useToast } from "vue-toastification";
 import { router } from '@inertiajs/vue3';
 
 export default {
@@ -54,48 +55,57 @@ export default {
     HomeLayout,
     Button
   },
-  data: ()=>({
-    email:"",
-    password:"",
-    errors:[],
+  data: () => ({
+    email: "",
+    password: "",
+    errors: [],
+    generalError: null,
   }),
   methods: {
     Login() {
+      const toast = useToast();
+      this.errors = [];
+      this.generalError = null;
+
+      if (!this.email || !this.password) {
+        toast.error("Por favor, completa todos los campos.");
+        return;
+      }
+
       axios
         .post("/v1/login", {
           email: this.email,
           password: this.password,
         })
         .then((res) => {
-            router.get("/profile");
+          toast.success("Inicio de sesión exitoso. Redirigiendo...");
+          router.get("/profile");
         })
         .catch((err) => {
-
           if (err.response) {
             const status = err.response.status;
             const data = err.response.data;
 
-            /* En caso de que exista errores en el formulario */
-            if (status == 422) {
-              let errores = [];
+            if (status === 422) {
+              let formErrors = [];
 
               const keys = Object.keys(data.errors);
-
               keys.forEach((key) => {
-                errores = errores.concat(data.errors[key]);
+                formErrors = formErrors.concat(data.errors[key]);
               });
 
-              this.errores = errores;
-            } else if (status == 500) {
-              /* En el caso de que haya un error en el servidor */
-              alert("Error del servidor");
+              this.errors = formErrors;
+              formErrors.forEach(error => toast.error(error));
+            } else if (status === 500) {
+              this.generalError = "Error del servidor. Por favor, intente más tarde.";
+              toast.error(this.generalError);
             } else {
-              /* Cualquier otro código de error que pueda generar el servidor */
-              alert("Error inesperado, código: " + status);
+              this.generalError = `Error inesperado, código: ${status}`;
+              toast.error(this.generalError);
             }
           } else {
-            /* Cualquier otro error inesperado */
-            alert("Error inesperado", error);
+            this.generalError = "Error inesperado. Por favor, intente más tarde.";
+            toast.error(this.generalError);
           }
         });
     },

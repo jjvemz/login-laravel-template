@@ -1,6 +1,6 @@
 
 <template>
-    <header class="bg-white">
+    <header class="bg-gray-200">
       <div class="mx-auto max-w-screen-xl px-4 sm:px-6 lg:px-8">
         <div class="flex h-16 items-center justify-between">
           <div class="flex-1 md:flex md:items-center md:gap-12">
@@ -28,8 +28,8 @@
 
                 <div class="hidden sm:flex">
                   <a
-                    class="rounded-md bg-gray-100 px-5 py-2.5 text-sm font-medium text-teal-600 hover:bg-teal-100 hover:text-teal-700"
-                    href="register"
+                    class="rounded-md bg-teal-600 px-5 py-2.5 text-sm font-medium text-white shadow hover:bg-teal-700 hover:text-teal-100"
+                    href="/register"
                   >
                     Registro
                   </a>
@@ -55,3 +55,20 @@
         </div>
     </header>
   </template>
+
+<script>
+import Button from './Button.vue';
+
+export default {
+  name: 'Navbar',
+  components: {
+    Button,
+  },
+  computed: {
+
+    currentRoute() {
+      return this.$route.path;
+    },
+  },
+};
+</script>

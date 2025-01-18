@@ -1,10 +1,10 @@
 <template>
-    <div class="flex flex-col min-h-screen">
+    <div class="flex flex-col min-h-screen ">
     <Navbar/>
 
 
     <!-- Main Content -->
-    <main class="flex-grow bg-gray-50">
+    <main class="flex-grow bg-gray-100">
       <div class="mx-auto max-w-screen-xl px-4 py-8 sm:px-6 lg:px-8">
         <slot />
       </div>

@@ -18,7 +18,7 @@
       },
       buttonClass: {
         type: String,
-        default: "bg-teal-600 text-white hover:bg-teal-400",
+        default: "bg-blue-500 text-white hover:bg-blue-600",
       },
     },
     emits: ["click"],

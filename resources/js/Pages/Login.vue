@@ -1,6 +1,6 @@
 <template>
     <HomeLayout>
-        <div class="h-full bg-gray-50">
+        <div class="h-full bg-gray-100">
             <!-- Container -->
             <div class="mx-auto">
                 <div class="flex justify-center px-6 py-12">
@@ -10,9 +10,9 @@
                         <div class="w-full h-auto bg-gray-400 dark:bg-gray-300 hidden lg:block lg:w-5/12 bg-cover rounded-l-lg"
                             style="background-image: url('https://media.istockphoto.com/id/1437824169/photo/business-woman-hands-computer-mouse-and-keyboard-typing-email-online-internet-search-and.jpg?s=1024x1024&w=is&k=20&c=RmzAtbot6Q25BH3pStciBLG6VhnpiXIHGClsnHLmlvs=')"></div>
                         <!-- Col -->
-                        <div class="w-full lg:w-7/12 bg-white dark:bg-gray-600 p-5 rounded-lg lg:rounded-l-none">
+                        <div class="w-full lg:w-7/12 bg-white dark:bg-gray-400 p-5 rounded-lg lg:rounded-l-none">
                             <h3 class="py-4 text-2xl text-center text-gray-500 dark:text-white">Ingreso</h3>
-                            <form @submit.prevent="Login" class="px-8 pt-6 pb-8 mb-4 bg-white dark:bg-gray-700 rounded">
+                            <form @submit.prevent="Login" class="px-8 pt-6 pb-8 mb-4 bg-white dark:bg-gray-500 rounded">
                                 <div class="mb-4">
                                     <label class="block mb-2 text-sm font-bold text-gray-700 dark:text-white"
                                         for="email">
@@ -32,7 +32,7 @@
                                         id="password" v-model="password" type="password" placeholder="Contraseña" />
                                 </div>
                                 <Button @click="Login"> Ingresar</Button>
-                                
+
                             </form>
                         </div>
                     </div>

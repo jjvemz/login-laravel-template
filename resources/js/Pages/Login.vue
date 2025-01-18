@@ -12,7 +12,7 @@
                         <!-- Col -->
                         <div class="w-full lg:w-7/12 bg-white dark:bg-gray-600 p-5 rounded-lg lg:rounded-l-none">
                             <h3 class="py-4 text-2xl text-center text-gray-500 dark:text-white">Ingreso</h3>
-                            <form class="px-8 pt-6 pb-8 mb-4 bg-white dark:bg-gray-700 rounded">
+                            <form @submit.prevent="Login" class="px-8 pt-6 pb-8 mb-4 bg-white dark:bg-gray-700 rounded">
 
                                 <div class="mb-4">
                                     <label class="block mb-2 text-sm font-bold text-gray-700 dark:text-white"
@@ -21,7 +21,7 @@
                                     </label>
                                     <input
                                         class="w-full px-3 py-2 mb-3 text-sm leading-tight text-gray-700 black:text-white border rounded shadow appearance-none focus:outline-none focus:shadow-outline"
-                                        id="email" type="email" placeholder="Email" />
+                                        id="email" v-model="email" type="email" placeholder="Email" />
                                 </div>
                                 <div class="mb-4">
                                     <label class="block mb-2 text-sm font-bold text-gray-700 dark:text-white"
@@ -30,9 +30,9 @@
                                     </label>
                                     <input
                                         class="w-full px-3 py-2 mb-3 text-sm leading-tight text-gray-700 black:text-white border rounded shadow appearance-none focus:outline-none focus:shadow-outline"
-                                        id="password" type="password" placeholder="Contraseña" />
+                                        id="password" v-model="password" type="password" placeholder="Contraseña" />
                                 </div>
-                                <Button> Ingresar</Button>
+                                <Button @click="Login"> Ingresar</Button>
                             </form>
                         </div>
                     </div>
@@ -43,14 +43,62 @@
 </template>
 
 <script>
+import axios from 'axios';
 import HomeLayout from '../Layout/HomeLayout.vue';
 import Button from '@/Components/Button.vue'
+import { router } from '@inertiajs/vue3';
 
 export default {
   name: 'Login',
   components: {
     HomeLayout,
     Button
-  }
+  },
+  data: ()=>({
+    email:"",
+    password:"",
+    errors:[],
+  }),
+  methods: {
+    Login() {
+      axios
+        .post("/v1/login", {
+          email: this.email,
+          password: this.password,
+        })
+        .then((res) => {
+            router.get("/profile");
+        })
+        .catch((err) => {
+
+          if (err.response) {
+            const status = err.response.status;
+            const data = err.response.data;
+
+            /* En caso de que exista errores en el formulario */
+            if (status == 422) {
+              let errores = [];
+
+              const keys = Object.keys(data.errors);
+
+              keys.forEach((key) => {
+                errores = errores.concat(data.errors[key]);
+              });
+
+              this.errores = errores;
+            } else if (status == 500) {
+              /* En el caso de que haya un error en el servidor */
+              alert("Error del servidor");
+            } else {
+              /* Cualquier otro código de error que pueda generar el servidor */
+              alert("Error inesperado, código: " + status);
+            }
+          } else {
+            /* Cualquier otro error inesperado */
+            alert("Error inesperado", error);
+          }
+        });
+    },
+  },
 }
 </script>

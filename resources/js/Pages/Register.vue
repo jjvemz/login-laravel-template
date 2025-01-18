@@ -18,14 +18,14 @@
                                     <div class="mb-4 md:mr-2 md:mb-0">
                                         <label class="block mb-2 text-sm font-bold text-gray-700 dark:text-white" for="first_name">Nombre</label>
                                         <input
-                                            class="w-full px-3 py-2 text-sm leading-tight text-gray-700 dark:text-white border rounded shadow appearance-none focus:outline-none focus:shadow-outline"
+                                            class="w-full px-3 py-2 text-sm leading-tight text-gray-700 black:text-white border rounded shadow appearance-none focus:outline-none focus:shadow-outline"
                                             id="first_name" v-model="first_name" type="text" placeholder="Nombre" />
 
                                     </div>
                                     <div class="md:ml-2">
                                         <label class="block mb-2 text-sm font-bold text-gray-700 dark:text-white" for="last_name">Apellido</label>
                                         <input
-                                            class="w-full px-3 py-2 text-sm leading-tight text-gray-700 dark:text-white border rounded shadow appearance-none focus:outline-none focus:shadow-outline"
+                                            class="w-full px-3 py-2 text-sm leading-tight text-gray-700 black:text-white border rounded shadow appearance-none focus:outline-none focus:shadow-outline"
                                             v-model="last_name" id="last_name" type="text" placeholder="Apellido" />
 
                                     </div>
@@ -33,14 +33,14 @@
                                 <div class="mb-4">
                                     <label class="block mb-2 text-sm font-bold text-gray-700 dark:text-white" for="email">Email</label>
                                     <input
-                                        class="w-full px-3 py-2 mb-3 text-sm leading-tight text-gray-700 dark:text-white border rounded shadow appearance-none focus:outline-none focus:shadow-outline"
+                                        class="w-full px-3 py-2 mb-3 text-sm leading-tight text-gray-700 black:text-white border rounded shadow appearance-none focus:outline-none focus:shadow-outline"
                                         id="email" v-model="email" type="email" placeholder="Email" />
 
                                 </div>
                                 <div class="mb-4">
                                     <label class="block mb-2 text-sm font-bold text-gray-700 dark:text-white" for="phone">Telefono</label>
                                     <input
-                                        class="w-full px-3 py-2 mb-3 text-sm leading-tight text-gray-700 dark:text-white border rounded shadow appearance-none focus:outline-none focus:shadow-outline"
+                                        class="w-full px-3 py-2 mb-3 text-sm leading-tight text-gray-700 black:text-white border rounded shadow appearance-none focus:outline-none focus:shadow-outline"
                                         id="phone" v-model="phone" type="text" placeholder="Telefono" />
 
                                 </div>

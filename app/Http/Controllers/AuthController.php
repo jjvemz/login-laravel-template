@@ -36,7 +36,7 @@ class AuthController extends Controller
             "password.regex" => "La contraseña debe contener al menos una letra minúscula, una letra mayúscula, un número y un carácter especial.",
         ]);
 
-        
+
         $user = User::create([
             'first_name' => $ValidatedRequest['first_name'],
             'last_name' => $ValidatedRequest['last_name'],
@@ -53,6 +53,9 @@ class AuthController extends Controller
         $credentials = $request->validate([
             'email' => 'required|email',
             'password' => 'required'
+        ],[
+            "email.required" => "El correo electrónico es obligatorio.",
+            "password.required" => "La contraseña es obligatoria."
         ]);
 
         if (Auth::attempt($credentials)) {

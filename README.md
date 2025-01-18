@@ -42,6 +42,9 @@ Este es un manual de uso para la aplicación con laravel. Pasa desde la instalac
 ![](https://ajeuwbhvhr.cloudimg.io/colony-recorder.s3.amazonaws.com/files/2025-01-18/1f0c67cd-5b88-432a-89a5-51b951930cbd/user_cropped_screenshot.jpeg?tl_px=14,19&br_px=874,500&force_format=jpeg&q=100&width=860&wat_scale=76&wat=1&wat_opacity=1&wat_gravity=northwest&wat_url=https://colony-recorder.s3.amazonaws.com/images/watermarks/EC4899_standard.png&wat_pad=99,361)
 
 
+Tip: El proyecto vendrá con un archivo .env example, deberá copiar y renombrar ese archivo como .env para poder configurar las variables de entorno correctamente
+
+
 8\. Una vez listo deberá ingresar el comando php artisan migrate para migrar correctamente las migraciones y los modelos de user de la base de datos
 
 ![](https://ajeuwbhvhr.cloudimg.io/colony-recorder.s3.amazonaws.com/files/2025-01-18/aaac27da-d771-4253-9bb5-146d3b4a0db5/ascreenshot.jpeg?tl_px=0,599&br_px=859,1080&force_format=jpeg&q=100&width=860&wat_scale=76&wat=1&wat_opacity=1&wat_gravity=northwest&wat_url=https://colony-recorder.s3.amazonaws.com/images/watermarks/EC4899_standard.png&wat_pad=988,428)
@@ -145,6 +148,3 @@ Tip: La aplicación también viene con avisos en caso de no ingresar correctamen
 25\. 
 
 ![](https://media.tenor.com/DE72MznZMqgAAAAC/cat.gif)
-#### [Made with Scribe](https://scribehow.com/shared/Manual_de_uso_para_la_aplicacin_de_Laravel__187hcoZiS-KkxE28yZYm5w)
-
-

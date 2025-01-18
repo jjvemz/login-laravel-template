@@ -37,9 +37,9 @@ Este es un manual de uso para la aplicación con laravel. Pasa desde la instalac
 ![](https://ajeuwbhvhr.cloudimg.io/colony-recorder.s3.amazonaws.com/files/2025-01-18/790ada6e-8b12-4e27-b706-2388c85d8e92/ascreenshot.jpeg?tl_px=1060,599&br_px=1920,1080&force_format=jpeg&q=100&width=860&wat_scale=76&wat=1&wat_opacity=1&wat_gravity=northwest&wat_url=https://colony-recorder.s3.amazonaws.com/images/watermarks/EC4899_standard.png&wat_pad=552,246)
 
 
-7\. Y copuelo en la variable DB_DATABASE
+7\. Y copielo en la variable DB_DATABASE
 
-![](https://ajeuwbhvhr.cloudimg.io/colony-recorder.s3.amazonaws.com/files/2025-01-18/220c786f-448c-466b-bab1-66e1f2184b3f/ascreenshot.jpeg?tl_px=0,338&br_px=859,819&force_format=jpeg&q=100&width=860&wat_scale=76&wat=1&wat_opacity=1&wat_gravity=northwest&wat_url=https://colony-recorder.s3.amazonaws.com/images/watermarks/EC4899_standard.png&wat_pad=133,212)
+![](https://ajeuwbhvhr.cloudimg.io/colony-recorder.s3.amazonaws.com/files/2025-01-18/1f0c67cd-5b88-432a-89a5-51b951930cbd/user_cropped_screenshot.jpeg?tl_px=14,19&br_px=874,500&force_format=jpeg&q=100&width=860&wat_scale=76&wat=1&wat_opacity=1&wat_gravity=northwest&wat_url=https://colony-recorder.s3.amazonaws.com/images/watermarks/EC4899_standard.png&wat_pad=99,361)
 
 
 8\. Una vez listo deberá ingresar el comando php artisan migrate para migrar correctamente las migraciones y los modelos de user de la base de datos

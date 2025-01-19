@@ -72,7 +72,9 @@ class AuthController extends Controller
     function logout(){
 
         Auth::logout();
+    session()->invalidate();
+    session()->regenerateToken();
 
-        Inertia::render('Login');
+    return Inertia::render('Login');
     }
 }

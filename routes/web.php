@@ -11,16 +11,16 @@ Route::get('/', function () {
 });
 Route::get('/login', function () {
     return Inertia::render('Login');
-});
+})->name('login');
+
 Route::get('/register', function () {
     return Inertia::render('Register');
 });
 
-//Render page when logged in
 Route::get('/profile', [FrontController::class, 'GetUserPage'])->middleware('auth');
 
-//Logged out only for the profile page
-Route::get('/logout', [AuthController::class, 'logout'])->middleware('auth');
+Route::post('/logout', [AuthController::class, 'logout'])->middleware('auth')->name('logout');
+
 
 Route::prefix('v1')->group(function () {
 

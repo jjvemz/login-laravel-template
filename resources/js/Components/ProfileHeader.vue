@@ -22,12 +22,11 @@
 
 
                 <div class="hidden sm:flex">
-                  <a
-                    class="rounded-md bg-gray-100 px-5 py-2.5 text-sm font-medium text-teal-600 hover:bg-teal-100 hover:text-teal-700"
-                    href="/logout"
-                  >
-                    Salir de la sesión
-                  </a>
+                    <Button @click="logout" >
+
+                        Salir de la sesión
+                    </Button>
+
                 </div>
               </div>
 
@@ -50,3 +49,30 @@
         </div>
     </header>
   </template>
+<script>
+import Button from './Button.vue';
+import axios from 'axios';
+import { router } from '@inertiajs/vue3';
+
+export default {
+  name: "Profile",
+  components: {
+    Button
+  },
+  methods: {
+    async logout() {
+      try {
+        await axios.post('/logout', {}, {
+          headers: {
+            'X-CSRF-TOKEN': document.querySelector('meta[name="csrf-token"]').getAttribute('content')
+          }
+        });
+
+        router.get("/profile");
+      } catch (error) {
+        router.get("/profile");
+      }
+    }
+  }
+}
+</script>

@@ -8,8 +8,7 @@
                     <div class="w-full xl:w-3/4 lg:w-11/12 flex">
                         <!-- Col -->
                         <div class="w-full h-auto bg-gray-400 dark:bg-gray-300 hidden lg:block lg:w-5/12 bg-cover rounded-l-lg"
-                            style="background-image: url('https://media.istockphoto.com/id/1437824169/photo/business-woman-hands-computer-mouse-and-keyboard-typing-email-online-internet-search-and.jpg?s=1024x1024&w=is&k=20&c=RmzAtbot6Q25BH3pStciBLG6VhnpiXIHGClsnHLmlvs=')">
-                        </div>
+                            style="background-image: url('https://media.istockphoto.com/id/1437824169/photo/business-woman-hands-computer-mouse-and-keyboard-typing-email-online-internet-search-and.jpg?s=1024x1024&w=is&k=20&c=RmzAtbot6Q25BH3pStciBLG6VhnpiXIHGClsnHLmlvs=')"></div>
                         <!-- Col -->
                         <div class="w-full lg:w-7/12 bg-white dark:bg-gray-400 p-5 rounded-lg lg:rounded-l-none">
                             <h3 class="py-4 text-2xl text-center text-gray-500 dark:text-white">Ingreso</h3>
@@ -51,80 +50,67 @@ import { useToast } from "vue-toastification";
 import { router } from '@inertiajs/vue3';
 
 export default {
-    name: 'Login',
-    components: {
-        HomeLayout,
-        Button
-    },
-    data: () => ({
-        email: "",
-        password: "",
-        errors: [],
-        generalError: null,
-    }),
-    methods: {
-        methods: {
-            async Login() {
-                const toast = useToast();
-                this.errors = [];
-                this.generalError = null;
+  name: 'Login',
+  components: {
+    HomeLayout,
+    Button
+  },
+  data: () => ({
+    email: "",
+    password: "",
+    errors: [],
+    generalError: null,
+  }),
+  methods: {
+    Login() {
+      const toast = useToast();
+      this.errors = [];
+      this.generalError = null;
 
+      if (!this.email || !this.password) {
+        toast.error("Por favor, completa todos los campos.");
+        return;
+      }
 
-                if (!this.email || !this.password) {
-                    toast.error("Por favor, completa todos los campos.");
-                    return;
-                }
+      axios
+        .post("/v1/login", {
+          email: this.email,
+          password: this.password,
+        }, {
+            _token: document.querySelector('meta[name="csrf-token"]').getAttribute('content')
+        })
+        .then((res) => {
+          toast.success("Inicio de sesión exitoso. Redirigiendo...");
+          router.get("/profile");
+        })
+        .catch((err) => {
+          if (err.response) {
+            const status = err.response.status;
+            const data = err.response.data;
 
-                try {
-                    const res = await axios.post("/v1/login", {
-                        email: this.email,
-                        password: this.password,
-                    });
-                    toast.success("Inicio de sesión exitoso. Redirigiendo...");
-                    router.get("/profile");
-                } catch (error) {
-                    this.handleLoginError(error, toast);
-                }
-            },
+            if (status === 422) {
+              let formErrors = [];
 
+              const keys = Object.keys(data.errors);
+              keys.forEach((key) => {
+                formErrors = formErrors.concat(data.errors[key]);
+              });
 
-            handleLoginError(error, toast) {
-                if (!error.response) {
-                    this.generalError = "Error inesperado. Por favor, intente más tarde.";
-                    toast.error(this.generalError);
-                    return;
-                }
-
-                const { status, data } = error.response;
-
-                if (status === 422) {
-                    this.handleValidationError(data.errors, toast);
-                } else if (status === 500) {
-                    this.handleServerError(toast);
-                } else {
-                    this.handleUnexpectedError(status, toast);
-                }
-            },
-
-
-            handleValidationError(errors, toast) {
-                const formErrors = Object.values(errors).flat();
-                this.errors = formErrors;
-                formErrors.forEach(error => toast.error(error));
-            },
-
-
-            handleServerError(toast) {
-                this.generalError = "Error del servidor. Por favor, intente más tarde.";
-                toast.error(this.generalError);
-            },
-
-
-            handleUnexpectedError(status, toast) {
-                this.generalError = `Error inesperado, código: ${status}`;
-                toast.error(this.generalError);
+              this.errors = formErrors;
+              formErrors.forEach(error => toast.error(error));
+            } else if (status === 500) {
+              this.generalError = "Error del servidor. Por favor, intente más tarde.";
+              toast.error(this.generalError);
+            } else {
+              this.generalError = `Error inesperado, código: ${status}`;
+              toast.error(this.generalError);
             }
-        }
-    }
+          } else {
+            this.generalError = "Error inesperado. Por favor, intente más tarde.";
+            toast.error(this.generalError);
+          }
+        });
+    },
+  },
 }
 </script>

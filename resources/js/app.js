@@ -6,6 +6,18 @@ import { resolvePageComponent } from 'laravel-vite-plugin/inertia-helpers';
 import Toast, { POSITION } from 'vue-toastification';
 import 'vue-toastification/dist/index.css';
 
+// Configuración global de AJAX para incluir el token CSRF
+import $ from 'jquery';  // Asegúrate de tener jQuery disponible en tu proyecto
+
+$(document).ready(function () {
+    // Configura el token CSRF para todas las solicitudes AJAX
+    $.ajaxSetup({
+        headers: {
+            'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+        }
+    });
+});
+
 createInertiaApp({
     resolve: name => resolvePageComponent(
         `./Pages/${name}.vue`,

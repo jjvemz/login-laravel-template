@@ -62,11 +62,11 @@ export default {
   methods: {
     async logout() {
       try {
-        await axios.post('/logout', {}, {
-          headers: {
-            'X-CSRF-TOKEN': document.querySelector('meta[name="csrf-token"]').getAttribute('content')
-          }
-        });
+        // await axios.post('/logout', {}, {
+        //   headers: {
+        //     'X-CSRF-TOKEN': document.querySelector('meta[name="csrf-token"]').getAttribute('content')
+        //   }
+        // });
 
         router.get("/profile");
       } catch (error) {
